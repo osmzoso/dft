@@ -21,6 +21,8 @@ Where:
 e^{-i \cdot 2\pi \cdot k \cdot n / N} = \cos\left( \frac{2\pi k n}{N} \right) - i \cdot \sin\left( \frac{2\pi k n}{N} \right)
 ```
 
+Python Code:
+
 ```python
 def dft(x):
     """
@@ -72,6 +74,8 @@ x[n] = \frac{1}{N} \sum_{k=0}^{N-1} \left( X_{re}[k] \cdot \cos\left(\frac{2 \pi
 ```
 
 Where $$X_{re}[k]$$ and $$X_{im}[k]$$ are the real and imaginary parts of $$X[k]$$, respectively.
+
+Python Code:
 
 ```python
 def idft(X):
