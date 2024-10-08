@@ -1,5 +1,80 @@
-# dft
-Discrete Fourier Transform
+# Discrete Fourier Transform
+
+## DFT
+
+TODO
+
+## iDFT
+
+To compute the **Inverse Discrete Fourier Transform (IDFT)** without using the `exp()` function, you can manually compute the cosine and sine terms that form the complex exponentials. The formula for IDFT is:
+
+```math
+x[n] = \frac{1}{N} \sum_{k=0}^{N-1} X[k] \cdot \left( \cos\left(\frac{2 \pi k n}{N}\right) + i \cdot \sin\left(\frac{2 \pi k n}{N}\right)\right)
+```
+
+Where:
+- $$X[k]$$ are the DFT coefficients.
+- $$x[n]$$ is the result of the IDFT (the time-domain signal).
+- $$N$$ is the number of samples.
+
+Here’s the Python code to implement the IDFT without using the `exp()` function:
+
+```python
+import numpy as np
+
+def idft(X):
+    """
+    Compute the Inverse Discrete Fourier Transform (IDFT) of a sequence X without using exp().
+    
+    Parameters:
+    X : array-like
+        The input sequence in the frequency domain (DFT coefficients).
+    
+    Returns:
+    x : np.array
+        The reconstructed sequence in the time domain.
+    """
+    N = len(X)
+    x = np.zeros(N, dtype=complex)
+    
+    for n in range(N):
+        sum_val = 0
+        for k in range(N):
+            angle = 2 * np.pi * k * n / N
+            real_part = np.cos(angle)
+            imag_part = np.sin(angle)
+            sum_val += X[k] * (real_part + 1j * imag_part)
+        x[n] = sum_val / N
+    
+    return x
+
+# Example usage:
+# X is the frequency domain representation (DFT coefficients)
+X = np.array([1, 2, 3, 4], dtype=complex)
+# Compute IDFT
+x = idft(X)
+print("IDFT Result:", x)
+```
+
+### Explanation:
+1. **Input**: `X` is the array of DFT coefficients.
+2. **Loops**:
+   - Outer loop (`n`) runs over the time-domain indices.
+   - Inner loop (`k`) computes the contribution from each frequency coefficient.
+3. **Computation**:
+   - For each pair of `n` and `k`, the angle \( \frac{2 \pi k n}{N} \) is computed.
+   - The real and imaginary parts of the exponential \( \cos(\theta) \) and \( \sin(\theta) \) are calculated.
+   - The sum over all frequency components is accumulated.
+4. The final result is divided by `N` to normalize the result as per the IDFT formula.
+
+This code does not use `exp()` and instead manually computes the sine and cosine components to recreate the complex exponentials.
+
+
+
+
+
+
+
 
 To avoid using complex multiplication and instead break it down into real and imaginary parts, we can separate the real and imaginary components of the input signal, perform the necessary operations, and then combine the results. This avoids directly multiplying complex numbers.
 
