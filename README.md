@@ -62,8 +62,8 @@ print("IDFT Result:", x)
    - Outer loop (`n`) runs over the time-domain indices.
    - Inner loop (`k`) computes the contribution from each frequency coefficient.
 3. **Computation**:
-   - For each pair of `n` and `k`, the angle \( \frac{2 \pi k n}{N} \) is computed.
-   - The real and imaginary parts of the exponential \( \cos(\theta) \) and \( \sin(\theta) \) are calculated.
+   - For each pair of `n` and `k`, the angle $$\frac{2 \pi k n}{N}$$ is computed.
+   - The real and imaginary parts of the exponential $$\cos(\theta)$$ and $$\sin(\theta)$$ are calculated.
    - The sum over all frequency components is accumulated.
 4. The final result is divided by `N` to normalize the result as per the IDFT formula.
 
@@ -143,8 +143,8 @@ print("IDFT Result:", x)
 ### Explanation:
 - The input `X` is separated into its real (`X_re`) and imaginary (`X_im`) components.
 - For each time index `n`, we loop over all frequency components `k` and compute the real and imaginary contributions separately:
-  - **Real part**: Calculated as \( X_{re}[k] \cdot \cos(\theta) - X_{im}[k] \cdot \sin(\theta) \).
-  - **Imaginary part**: Calculated as \( X_{im}[k] \cdot \cos(\theta) + X_{re}[k] \cdot \sin(\theta) \).
+  - **Real part**: Calculated as $$X_{re}[k] \cdot \cos(\theta) - X_{im}[k] \cdot \sin(\theta)$$.
+  - **Imaginary part**: Calculated as $$X_{im}[k] \cdot \cos(\theta) + X_{re}[k] \cdot \sin(\theta)$$.
 - The two sums (real and imaginary) are accumulated separately and normalized by `N`.
 - Finally, the real and imaginary results are combined into a complex array `x`.
 
