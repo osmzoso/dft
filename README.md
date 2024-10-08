@@ -1,6 +1,5 @@
 # DFT
 
-<https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/writing-mathematical-expressions>
 
 ## Discrete Fourier Transform (DFT)
 
@@ -19,7 +18,30 @@ Where:
 - $i$ is the imaginary unit.
 - The exponential $e^{-i \cdot 2\pi \cdot k \cdot n / N}$ can be expanded using Euler's formula into real and imaginary components:
 ```math
-  e^{-i \cdot 2\pi \cdot k \cdot n / N} = \cos\left( \frac{2\pi k n}{N} \right) - i \cdot \sin\left( \frac{2\pi k n}{N} \right)
+e^{-i \cdot 2\pi \cdot k \cdot n / N} = \cos\left( \frac{2\pi k n}{N} \right) - i \cdot \sin\left( \frac{2\pi k n}{N} \right)
+```
+
+```python
+def dft(x):
+    """
+    Compute the Discrete Fourier Transform (DFT) of a 1D array x.
+
+    Parameter x : The input array containing time-domain signal samples.
+    Returns   X : The DFT coefficients (frequency-domain representation).
+    Format of list x and X: [(real, imag), (real, imag), ...]
+    """
+    N = len(x)
+    X = [(0, 0)] * N
+    for k in range(N):  # Loop over each frequency bin
+        real = 0.0
+        imag = 0.0
+        for n in range(N):  # Loop over each time sample
+            (x_real, x_imag) = x[n]
+            angle = 2 * math.pi * k * n / N
+            real += x_real * math.cos(angle)
+            imag -= x_real * math.sin(angle)
+        X[k] = (real, imag)
+    return X
 ```
 
 <https://en.wikipedia.org/wiki/Euler%27s_formula>  
@@ -49,11 +71,38 @@ The formula for iDFT in terms of real and imaginary parts is:
 x[n] = \frac{1}{N} \sum_{k=0}^{N-1} \left( X_{re}[k] \cdot \cos\left(\frac{2 \pi k n}{N}\right) - X_{im}[k] \cdot \sin\left(\frac{2 \pi k n}{N}\right) \right) + i \cdot \left( X_{im}[k] \cdot \cos\left(\frac{2 \pi k n}{N}\right) + X_{re}[k] \cdot \sin\left(\frac{2 \pi k n}{N}\right) \right)
 ```
 
-Where:
-- $$X_{re}[k]$$ and $$X_{im}[k]$$ are the real and imaginary parts of $$X[k]$$, respectively.
+Where $$X_{re}[k]$$ and $$X_{im}[k]$$ are the real and imaginary parts of $$X[k]$$, respectively.
 
+```python
+def idft(X):
+    """
+    Compute the Inverse Discrete Fourier Transform (iDFT) of an array of DFT coefficients.
 
-## Python Code
+    Parameter X : The input sequence in the frequency domain (DFT coefficients).
+    Returns   x : The reconstructed sequence in the time domain.
+    Format of list X and x: [(real, imag), (real, imag), ...]
+    """
+    N = len(X)
+    x = [(0, 0)] * N
+    for n in range(N):
+        real = 0.0
+        imag = 0.0
+        for k in range(N):
+            (X_real, X_imag) = X[k]
+            angle = 2 * math.pi * k * n / N
+            cos_term = math.cos(angle)
+            sin_term = math.sin(angle)
+            real += X_real * cos_term - X_imag * sin_term
+            imag += X_imag * cos_term + X_real * sin_term
+        x[n] = (real / N, imag / N)  # Normalize by N
+    return x
+```
+
+## Links
+
+<https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/writing-mathematical-expressions>
+
+## Old Python Test Code
 Below is the Python implementation of the DFT using loops and manually breaking down the complex exponential into sine and cosine:
 
 ```python
