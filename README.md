@@ -73,20 +73,19 @@ print("Imaginary part of DFT:", X_imag)
 
 2. **Frequency Domain**: The real and imaginary parts together represent the DFT coefficients in the frequency domain.
 
-### If you want to combine the real and imaginary parts into complex values, you can easily do that in Python:
+Combine the real and imaginary parts into complex values:
 
 ```python
 X = X_real + 1j * X_imag
 print("DFT (complex values):", X)
 ```
 
-This code manually calculates the Discrete Fourier Transform without relying on any built-in FFT algorithms. Let me know if you'd like to see a faster, optimized version using `numpy.fft.fft`!
 
 
 
-## iDFT
+## Inverse Discrete Fourier Transform (iDFT)
 
-To compute the **Inverse Discrete Fourier Transform (IDFT)** without using the `exp()` function, you can manually compute the cosine and sine terms that form the complex exponentials. The formula for IDFT is:
+To compute the iDFT you can manually compute the cosine and sine terms that form the complex exponentials. The formula for iDFT is:
 
 ```math
 x[n] = \frac{1}{N} \sum_{k=0}^{N-1} X[k] \cdot \left( \cos\left(\frac{2 \pi k n}{N}\right) + i \cdot \sin\left(\frac{2 \pi k n}{N}\right)\right)
