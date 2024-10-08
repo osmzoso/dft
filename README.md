@@ -2,6 +2,9 @@
 
 <https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/writing-mathematical-expressions>
 
+<https://en.wikipedia.org/wiki/Euler%27s_formula>  
+<https://de.wikipedia.org/wiki/Eulersche_Formel>  
+
 ## Discrete Fourier Transform (DFT)
 
 The DFT converts a sequence of $N$ time-domain samples into the frequency domain.  
