@@ -2,12 +2,9 @@
 
 <https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/writing-mathematical-expressions>
 
-<https://en.wikipedia.org/wiki/Euler%27s_formula>  
-<https://de.wikipedia.org/wiki/Eulersche_Formel>  
-
 ## Discrete Fourier Transform (DFT)
 
-The DFT converts a sequence of $N$ time-domain samples into the frequency domain.  
+The **DFT** converts a sequence of $N$ time-domain samples into the frequency domain.  
 The formula for the DFT of a signal $x[n]$, where $n = 0, 1, 2, \dots, N-1$, is:
 
 ```math
@@ -25,6 +22,38 @@ Where:
   e^{-i \cdot 2\pi \cdot k \cdot n / N} = \cos\left( \frac{2\pi k n}{N} \right) - i \cdot \sin\left( \frac{2\pi k n}{N} \right)
 ```
 
+<https://en.wikipedia.org/wiki/Euler%27s_formula>  
+<https://de.wikipedia.org/wiki/Eulersche_Formel>  
+
+
+## Inverse Discrete Fourier Transform (iDFT)
+
+The **iDFT** converts a sequence of $N$ frequency-domain samples into the time domain.  
+
+To compute the iDFT you can manually compute the cosine and sine terms that form the complex exponentials. The formula for iDFT is:
+
+```math
+x[n] = \frac{1}{N} \sum_{k=0}^{N-1} X[k] \cdot \left( \cos\left(\frac{2 \pi k n}{N}\right) + i \cdot \sin\left(\frac{2 \pi k n}{N}\right)\right)
+```
+
+Where:
+- $$X[k]$$ are the DFT coefficients.
+- $$x[n]$$ is the result of the IDFT (the time-domain signal).
+- $$N$$ is the number of samples.
+
+To avoid using complex multiplication and instead break it down into real and imaginary parts, we can separate the real and imaginary components of the input signal, perform the necessary operations, and then combine the results. This avoids directly multiplying complex numbers.
+
+The formula for iDFT in terms of real and imaginary parts is:
+
+```math
+x[n] = \frac{1}{N} \sum_{k=0}^{N-1} \left( X_{re}[k] \cdot \cos\left(\frac{2 \pi k n}{N}\right) - X_{im}[k] \cdot \sin\left(\frac{2 \pi k n}{N}\right) \right) + i \cdot \left( X_{im}[k] \cdot \cos\left(\frac{2 \pi k n}{N}\right) + X_{re}[k] \cdot \sin\left(\frac{2 \pi k n}{N}\right) \right)
+```
+
+Where:
+- $$X_{re}[k]$$ and $$X_{im}[k]$$ are the real and imaginary parts of $$X[k]$$, respectively.
+
+
+## Python Code
 Below is the Python implementation of the DFT using loops and manually breaking down the complex exponential into sine and cosine:
 
 ```python
@@ -82,23 +111,6 @@ Combine the real and imaginary parts into complex values:
 X = X_real + 1j * X_imag
 print("DFT (complex values):", X)
 ```
-
-
-
-
-## Inverse Discrete Fourier Transform (iDFT)
-
-To compute the iDFT you can manually compute the cosine and sine terms that form the complex exponentials. The formula for iDFT is:
-
-```math
-x[n] = \frac{1}{N} \sum_{k=0}^{N-1} X[k] \cdot \left( \cos\left(\frac{2 \pi k n}{N}\right) + i \cdot \sin\left(\frac{2 \pi k n}{N}\right)\right)
-```
-
-Where:
-- $$X[k]$$ are the DFT coefficients.
-- $$x[n]$$ is the result of the IDFT (the time-domain signal).
-- $$N$$ is the number of samples.
-
 Here’s the Python code to implement the IDFT without using the `exp()` function:
 
 ```python
@@ -151,23 +163,6 @@ print("IDFT Result:", x)
 
 This code does not use `exp()` and instead manually computes the sine and cosine components to recreate the complex exponentials.
 
-
-
-
-
-
-
-
-To avoid using complex multiplication and instead break it down into real and imaginary parts, we can separate the real and imaginary components of the input signal, perform the necessary operations, and then combine the results. This avoids directly multiplying complex numbers.
-
-The formula for **IDFT** in terms of real and imaginary parts is:
-
-```math
-x[n] = \frac{1}{N} \sum_{k=0}^{N-1} \left( X_{re}[k] \cdot \cos\left(\frac{2 \pi k n}{N}\right) - X_{im}[k] \cdot \sin\left(\frac{2 \pi k n}{N}\right) \right) + i \cdot \left( X_{im}[k] \cdot \cos\left(\frac{2 \pi k n}{N}\right) + X_{re}[k] \cdot \sin\left(\frac{2 \pi k n}{N}\right) \right)
-```
-
-Where:
-- $$X_{re}[k]$$ and $$X_{im}[k]$$ are the real and imaginary parts of $$X[k]$$, respectively.
 
 Here’s the Python code that separates the real and imaginary parts explicitly and avoids complex multiplication:
 
