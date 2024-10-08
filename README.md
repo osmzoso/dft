@@ -9,6 +9,7 @@ $$x[n] = \frac{1}{N} \sum_{k=0}^{N-1} \left( X_{re}[k] \cdot \cos\left(\frac{2 \
 
 Where:
 - \( X_{re}[k] \) and \( X_{im}[k] \) are the real and imaginary parts of \( X[k] \), respectively.
+- $$X_{re}[k]$$ and \( X_{im}[k] \) are the real and imaginary parts of \( X[k] \), respectively.
 
 Here’s the Python code that separates the real and imaginary parts explicitly and avoids complex multiplication:
 
