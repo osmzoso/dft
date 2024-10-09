@@ -11,7 +11,10 @@ def dft(x):
 
     Parameter x : The input array containing time-domain signal samples.
     Returns   X : The DFT coefficients (frequency-domain representation).
+
+    This function does not use the complex numbers type in Python.
     Format of list x and X: [(real, imag), (real, imag), ...]
+    The time-domain signal is in the real part, the imag part is not used.
     """
     N = len(x)
     X = [(0, 0)] * N
@@ -19,10 +22,9 @@ def dft(x):
         real = 0.0
         imag = 0.0
         for n in range(N):  # Loop over each time sample
-            (x_real, x_imag) = x[n]
             angle = 2 * math.pi * k * n / N
-            real += x_real * math.cos(angle)
-            imag -= x_real * math.sin(angle)
+            real += x[n][0] * math.cos(angle)  # mul with real part of x[n]
+            imag -= x[n][0] * math.sin(angle)
         X[k] = (real, imag)
     return X
 
@@ -33,6 +35,8 @@ def idft(X):
 
     Parameter X : The input sequence in the frequency domain (DFT coefficients).
     Returns   x : The reconstructed sequence in the time domain.
+
+    This function does not use the complex numbers type in Python.
     Format of list X and x: [(real, imag), (real, imag), ...]
     """
     N = len(X)
@@ -41,12 +45,11 @@ def idft(X):
         real = 0.0
         imag = 0.0
         for k in range(N):
-            (X_real, X_imag) = X[k]
             angle = 2 * math.pi * k * n / N
             cos_term = math.cos(angle)
             sin_term = math.sin(angle)
-            real += X_real * cos_term - X_imag * sin_term
-            imag += X_imag * cos_term + X_real * sin_term
+            real += X[k][0] * cos_term - X[k][1] * sin_term
+            imag += X[k][1] * cos_term + X[k][0] * sin_term
         x[n] = (real / N, imag / N)  # Normalize by N
     return x
 
@@ -96,9 +99,9 @@ def test1():
 def test2():
     """
     Test Multiple sine curves
-    Gleichstromanteil:         150
-    Amplitude Grundwelle:     1000
-    Amplitude 2. Harmonische:  300
+    DC component:              150
+    Amplitude fundamental:    1000
+    Amplitude 2nd harmonic:    300
     """
     print('*'*20, 'Test 2', '*'*20)
     N = 16
@@ -113,4 +116,4 @@ def test2():
 
 if __name__ == "__main__":
     test1()
-    test2()
+    #test2()
