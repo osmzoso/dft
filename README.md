@@ -59,7 +59,7 @@ Reconstruct a discrete time-domain sequence from its frequency-domain representa
 The formula for the IDFT is:
 
 ```math
-x[n] = \frac{1}{N} \sum_{k=0}^{N-1} X[k] e^{i \frac{2\pi}{N} kn}
+x[n] = \frac{1}{N} \sum_{k=0}^{N-1} X[k] \cdot e^{i \frac{2\pi k n}{N}}
 ```
 or
 ```math
