@@ -52,12 +52,16 @@ def dft(x):
 <https://de.wikipedia.org/wiki/Eulersche_Formel>  
 
 
-## Inverse Discrete Fourier Transform (iDFT)
+## Inverse Discrete Fourier Transform (IDFT)
 
-The **iDFT** converts a sequence of $N$ frequency-domain samples into the time domain.  
+Reconstruct a discrete time-domain sequence from its frequency-domain representation.
 
-To compute the iDFT you can manually compute the cosine and sine terms that form the complex exponentials. The formula for iDFT is:
+The formula for the IDFT is:
 
+```math
+x[n] = \frac{1}{N} \sum_{k=0}^{N-1} X[k] e^{i \frac{2\pi}{N} kn}
+```
+or
 ```math
 x[n] = \frac{1}{N} \sum_{k=0}^{N-1} X[k] \cdot \left( \cos\left(\frac{2 \pi k n}{N}\right) + i \cdot \sin\left(\frac{2 \pi k n}{N}\right)\right)
 ```
@@ -67,9 +71,8 @@ Where:
 - $$x[n]$$ is the result of the IDFT (the time-domain signal).
 - $$N$$ is the number of samples.
 
-To avoid using complex multiplication and instead break it down into real and imaginary parts, we can separate the real and imaginary components of the input signal, perform the necessary operations, and then combine the results. This avoids directly multiplying complex numbers.
 
-The formula for iDFT in terms of real and imaginary parts is:
+The formula for IDFT in terms of real and imaginary parts is:
 
 ```math
 x[n] = \frac{1}{N} \sum_{k=0}^{N-1} \left( X_{re}[k] \cdot \cos\left(\frac{2 \pi k n}{N}\right) - X_{im}[k] \cdot \sin\left(\frac{2 \pi k n}{N}\right) \right) + i \cdot \left( X_{im}[k] \cdot \cos\left(\frac{2 \pi k n}{N}\right) + X_{re}[k] \cdot \sin\left(\frac{2 \pi k n}{N}\right) \right)
@@ -82,7 +85,7 @@ Python Code:
 ```python
 def idft(X):
     """
-    Compute the Inverse Discrete Fourier Transform (iDFT) of an array of DFT coefficients.
+    Compute the Inverse Discrete Fourier Transform (iDFT)
 
     Parameter X : The input sequence in the frequency domain (DFT coefficients).
     Returns   x : The reconstructed sequence in the time domain.
@@ -97,10 +100,8 @@ def idft(X):
         imag = 0.0
         for k in range(N):
             angle = 2 * math.pi * k * n / N
-            cos_term = math.cos(angle)
-            sin_term = math.sin(angle)
-            real += X[k][0] * cos_term - X[k][1] * sin_term
-            imag += X[k][1] * cos_term + X[k][0] * sin_term
+            real += X[k][0] * math.cos(angle) - X[k][1] * math.sin(angle)
+            #imag += X[k][1] * math.cos(angle) + X[k][0] * math.sin(angle)
         x[n] = (real / N, imag / N)  # Normalize by N
     return x
 ```

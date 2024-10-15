@@ -7,7 +7,7 @@ import math
 
 def dft(x):
     """
-    Compute the Discrete Fourier Transform (DFT) of a 1D array x.
+    Compute the Discrete Fourier Transform (DFT)
 
     Parameter x : The input array containing time-domain signal samples.
     Returns   X : The DFT coefficients (frequency-domain representation).
@@ -31,7 +31,7 @@ def dft(x):
 
 def idft(X):
     """
-    Compute the Inverse Discrete Fourier Transform (iDFT) of an array of DFT coefficients.
+    Compute the Inverse Discrete Fourier Transform (iDFT)
 
     Parameter X : The input sequence in the frequency domain (DFT coefficients).
     Returns   x : The reconstructed sequence in the time domain.
@@ -46,10 +46,8 @@ def idft(X):
         imag = 0.0
         for k in range(N):
             angle = 2 * math.pi * k * n / N
-            cos_term = math.cos(angle)
-            sin_term = math.sin(angle)
-            real += X[k][0] * cos_term - X[k][1] * sin_term
-            imag += X[k][1] * cos_term + X[k][0] * sin_term
+            real += X[k][0] * math.cos(angle) - X[k][1] * math.sin(angle)
+            #imag += X[k][1] * math.cos(angle) + X[k][0] * math.sin(angle)
         x[n] = (real / N, imag / N)  # Normalize by N
     return x
 
