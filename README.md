@@ -116,8 +116,14 @@ def idft(X):
 <https://stackoverflow.com/questions/5595425/how-to-compare-floats-for-almost-equality-in-python>  
 <https://www.geeksforgeeks.org/discrete-fourier-transform-and-its-inverse-using-c>
 
-## Complex DFT (TODO)
+---
+# Draft TODO
+---
 
+# DFT
+
+
+## Discrete Fourier Transform (DFT)
 
 The Discrete Fourier Transform (DFT) of a complex time-domain signal can be expressed in terms of its real and imaginary parts by breaking down both the signal and the complex exponential.
 
@@ -178,4 +184,120 @@ Thus, the DFT in terms of real and imaginary parts of the signal is:
 X(k) = \left[ \sum_{n=0}^{N-1} \left( x_r(n) \cdot \cos\left( \frac{2\pi k n}{N} \right) + x_i(n) \cdot \sin\left( \frac{2\pi k n}{N} \right) \right) \right] + i \cdot \left[ \sum_{n=0}^{N-1} \left( -x_r(n) \cdot \sin\left( \frac{2\pi k n}{N} \right) + x_i(n) \cdot \cos\left( \frac{2\pi k n}{N} \right) \right) \right]
 ```
 
-This formula explicitly separates the real and imaginary parts of the DFT, and can now be implemented in code as shown earlier.
+This formula explicitly separates the real and imaginary parts of the DFT, and can now be implemented in code.
+
+Python Code:
+
+```python
+def dft(x):
+    """
+    Compute the Discrete Fourier Transform (DFT)
+
+    Parameter x : List of complex numbers.
+                  The time-domain signal is in the real part.
+                  The imag part is not used (should be zero).
+    Returns   X : List of DFT coefficients (frequency-domain representation).
+    """
+    N = len(x)
+    X = [complex()] * N
+    for k in range(N):  # Loop over each frequency bin
+        real = 0
+        imag = 0
+        for n in range(N):  # Loop over each time sample
+            angle = 2 * math.pi * k * n / N
+            real +=  x[n].real * math.cos(angle) + x[n].imag * math.sin(angle)
+            imag += -x[n].real * math.sin(angle) + x[n].imag * math.cos(angle)
+        X[k] = complex(real, imag)
+    return X
+```
+
+
+## Inverse Discrete Fourier Transform (IDFT)
+
+The Inverse Discrete Fourier Transform (IDFT) is used to transform a frequency-domain signal back into its time-domain representation. Like the DFT, the IDFT can also be expressed in terms of its real and imaginary components.
+
+### IDFT Formula:
+
+Given the frequency-domain signal $X(k) = X_r(k) + i \cdot X_i(k)$, where:
+- $X_r(k)$ is the real part of the frequency-domain signal.
+- $X_i(k)$ is the imaginary part of the frequency-domain signal.
+- $N$ is the total number of samples.
+
+The general formula for the IDFT is:
+
+```math
+x(n) = \frac{1}{N} \sum_{k=0}^{N-1} X(k) \cdot e^{i \cdot \frac{2\pi k n}{N}}
+```
+
+### Using Euler's Formula:
+
+We can rewrite the complex exponential $e^{i \cdot \frac{2\pi k n}{N}}$ using Euler's identity:
+
+```math
+e^{i \cdot \frac{2\pi k n}{N}} = \cos\left( \frac{2\pi k n}{N} \right) + i \cdot \sin\left( \frac{2\pi k n}{N} \right)
+```
+
+### Breaking Down into Real and Imaginary Parts:
+
+Substitute the real and imaginary parts of $X(k)$ into the IDFT formula:
+
+```math
+x(n) = \frac{1}{N} \sum_{k=0}^{N-1} \left[ X_r(k) + i \cdot X_i(k) \right] \cdot \left[ \cos\left( \frac{2\pi k n}{N} \right) + i \cdot \sin\left( \frac{2\pi k n}{N} \right) \right]
+```
+
+Now, expanding this:
+
+```math
+x(n) = \frac{1}{N} \sum_{k=0}^{N-1} \left[ X_r(k) \cdot \cos\left( \frac{2\pi k n}{N} \right) - X_i(k) \cdot \sin\left( \frac{2\pi k n}{N} \right) \right] + i \cdot \left[ X_r(k) \cdot \sin\left( \frac{2\pi k n}{N} \right) + X_i(k) \cdot \cos\left( \frac{2\pi k n}{N} \right) \right]
+```
+
+### Final Formula for IDFT:
+
+Thus, the IDFT formula in terms of real and imaginary parts is:
+
+```math
+x_r(n) = \frac{1}{N} \sum_{k=0}^{N-1} \left( X_r(k) \cdot \cos\left( \frac{2\pi k n}{N} \right) - X_i(k) \cdot \sin\left( \frac{2\pi k n}{N} \right) \right)
+```
+
+```math
+x_i(n) = \frac{1}{N} \sum_{k=0}^{N-1} \left( X_r(k) \cdot \sin\left( \frac{2\pi k n}{N} \right) + X_i(k) \cdot \cos\left( \frac{2\pi k n}{N} \right) \right)
+```
+
+### Real and Imaginary Parts of $x(n)$:
+
+The time-domain signal $x(n) = x_r(n) + i \cdot x_i(n)$ is now composed of:
+- **Real part** $x_r(n)$:
+```math
+x_r(n) = \frac{1}{N} \sum_{k=0}^{N-1} \left( X_r(k) \cdot \cos\left( \frac{2\pi k n}{N} \right) - X_i(k) \cdot \sin\left( \frac{2\pi k n}{N} \right) \right)
+```
+  
+- **Imaginary part** $x_i(n)$:
+```math
+x_i(n) = \frac{1}{N} \sum_{k=0}^{N-1} \left( X_r(k) \cdot \sin\left( \frac{2\pi k n}{N} \right) + X_i(k) \cdot \cos\left( \frac{2\pi k n}{N} \right) \right)
+```
+
+This formula reconstructs the real and imaginary components of the time-domain signal from its frequency-domain representation using the IDFT.
+
+Python Code:
+
+```python
+def idft(X):
+    """
+    Compute the Inverse Discrete Fourier Transform (IDFT)
+
+    Parameter X : The input sequence in the frequency domain (DFT coefficients).
+    Returns   x : The reconstructed sequence in the time domain.
+    """
+    N = len(X)
+    x = [complex()] * N
+    for n in range(N):
+        real = 0
+        imag = 0
+        for k in range(N):
+            angle = 2 * math.pi * k * n / N
+            real += X[k].real * math.cos(angle) - X[k].imag * math.sin(angle)
+            imag += X[k].imag * math.cos(angle) + X[k].real * math.sin(angle)
+        x[n] = complex(real / N, imag / N)  # Normalize by N
+    return x
+```
+
