@@ -3,9 +3,13 @@
 
 ## Discrete Fourier Transform (DFT)
 
-The Discrete Fourier Transform (DFT) of a complex time-domain signal can be expressed in terms of its real and imaginary parts by breaking down both the signal and the complex exponential.
+The **Discrete Fourier Transform (DFT)** is a mathematical technique used to
+convert a sequence of values (usually in the time domain) into a sequence of
+complex numbers (representing the frequency domain). Essentially, it helps to
+decompose a signal into its constituent frequencies, showing how much of each
+frequency is present in the original signal.
 
-### Formula for the DFT:
+### Formula:
 
 Given a signal $x(n) = x_r(n) + i \cdot x_i(n)$, where:
 - $x_r(n)$ is the real part of the signal.
@@ -25,15 +29,11 @@ Where:
 - $k$ is the frequency index (from 0 to $N-1$).
 - $i$ is the imaginary unit.
 
-### Breaking Down the Exponential Term
-
 The complex exponential $e^{-i \cdot \frac{2\pi k n}{N}}$ can be rewritten using Euler's formula:
 
 ```math
 e^{-i \cdot \frac{2\pi k n}{N}} = \cos\left(\frac{2\pi k n}{N}\right) - i \cdot \sin\left(\frac{2\pi k n}{N}\right)
 ```
-
-### Expanding Real and Imaginary Parts
 
 Substituting the real and imaginary parts of $x(n)$ into the DFT formula:
 
@@ -47,8 +47,6 @@ Now, expanding this:
 X(k) = \sum_{n=0}^{N-1} \left[ x_r(n) \cdot \cos\left( \frac{2\pi k n}{N} \right) - x_r(n) \cdot i \cdot \sin\left( \frac{2\pi k n}{N} \right) + x_i(n) \cdot i \cdot \cos\left( \frac{2\pi k n}{N} \right) + x_i(n) \cdot \sin\left( \frac{2\pi k n}{N} \right) \right]
 ```
 
-### Grouping Real and Imaginary Terms
-
 The real part of $X(k)$:
 
 ```math
@@ -61,7 +59,7 @@ The imaginary part of $X(k)$:
 \text{Im}(X(k)) = \sum_{n=0}^{N-1} \left[ -x_r(n) \cdot \sin\left( \frac{2\pi k n}{N} \right) + x_i(n) \cdot \cos\left( \frac{2\pi k n}{N} \right) \right]
 ```
 
-### Final Formula
+### Final Formula:
 
 Thus, the DFT in terms of real and imaginary parts of the signal is:
 
