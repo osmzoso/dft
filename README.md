@@ -11,11 +11,6 @@ frequency is present in the original signal.
 
 ### Formula:
 
-Given a signal $x(n) = x_r(n) + i \cdot x_i(n)$, where:
-- $x_r(n)$ is the real part of the signal.
-- $x_i(n)$ is the imaginary part of the signal.
-- $i$ is the imaginary unit $\sqrt{-1}$.
-
 The DFT of $x(n)$ for the frequency bin $k$ is given by:
 
 ```math
@@ -25,9 +20,12 @@ X(k) = \sum_{n=0}^{N-1} x(n) \cdot e^{-i \cdot \frac{2\pi k n}{N}}
 Where:
 - $X(k)$ is the DFT coefficient for the $k$-th frequency bin.
 - $x(n)$ is the time-domain sample at index $n$.
+  - where $x(n) = x_r(n) + i \cdot x_i(n)$
+  - $x_r(n)$ is the real part of the signal.
+  - $x_i(n)$ is the imaginary part of the signal (usually 0).
 - $N$ is the total number of samples.
 - $k$ is the frequency index (from 0 to $N-1$).
-- $i$ is the imaginary unit.
+- $i$ is the imaginary unit $\sqrt{-1}$.
 
 The complex exponential $e^{-i \cdot \frac{2\pi k n}{N}}$ can be rewritten using Euler's formula:
 
@@ -46,20 +44,6 @@ Now, expanding this:
 ```math
 X(k) = \sum_{n=0}^{N-1} \left[ x_r(n) \cdot \cos\left( \frac{2\pi k n}{N} \right) - x_r(n) \cdot i \cdot \sin\left( \frac{2\pi k n}{N} \right) + x_i(n) \cdot i \cdot \cos\left( \frac{2\pi k n}{N} \right) + x_i(n) \cdot \sin\left( \frac{2\pi k n}{N} \right) \right]
 ```
-
-The real part of $X(k)$:
-
-```math
-\text{Re}(X(k)) = \sum_{n=0}^{N-1} \left[ x_r(n) \cdot \cos\left( \frac{2\pi k n}{N} \right) + x_i(n) \cdot \sin\left( \frac{2\pi k n}{N} \right) \right]
-```
-
-The imaginary part of $X(k)$:
-
-```math
-\text{Im}(X(k)) = \sum_{n=0}^{N-1} \left[ -x_r(n) \cdot \sin\left( \frac{2\pi k n}{N} \right) + x_i(n) \cdot \cos\left( \frac{2\pi k n}{N} \right) \right]
-```
-
-### Final Formula:
 
 Thus, the DFT in terms of real and imaginary parts of the signal is:
 
