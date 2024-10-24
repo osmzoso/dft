@@ -81,12 +81,7 @@ def dft(x):
 
 The Inverse Discrete Fourier Transform (IDFT) is used to transform a frequency-domain signal back into its time-domain representation. Like the DFT, the IDFT can also be expressed in terms of its real and imaginary components.
 
-### IDFT Formula:
-
-Given the frequency-domain signal $X(k) = X_r(k) + i \cdot X_i(k)$, where:
-- $X_r(k)$ is the real part of the frequency-domain signal.
-- $X_i(k)$ is the imaginary part of the frequency-domain signal.
-- $N$ is the total number of samples.
+### Formula:
 
 The general formula for the IDFT is:
 
@@ -94,15 +89,15 @@ The general formula for the IDFT is:
 x(n) = \frac{1}{N} \sum_{k=0}^{N-1} X(k) \cdot e^{i \cdot \frac{2\pi k n}{N}}
 ```
 
-### Using Euler's Formula:
-
 We can rewrite the complex exponential $e^{i \cdot \frac{2\pi k n}{N}}$ using Euler's identity:
 
 ```math
 e^{i \cdot \frac{2\pi k n}{N}} = \cos\left( \frac{2\pi k n}{N} \right) + i \cdot \sin\left( \frac{2\pi k n}{N} \right)
 ```
 
-### Breaking Down into Real and Imaginary Parts:
+Given the frequency-domain signal $X(k) = X_r(k) + i \cdot X_i(k)$, where:
+- $X_r(k)$ is the real part of the frequency-domain signal.
+- $X_i(k)$ is the imaginary part of the frequency-domain signal.
 
 Substitute the real and imaginary parts of $X(k)$ into the IDFT formula:
 
@@ -116,8 +111,6 @@ Now, expanding this:
 x(n) = \frac{1}{N} \sum_{k=0}^{N-1} \left[ X_r(k) \cdot \cos\left( \frac{2\pi k n}{N} \right) - X_i(k) \cdot \sin\left( \frac{2\pi k n}{N} \right) \right] + i \cdot \left[ X_r(k) \cdot \sin\left( \frac{2\pi k n}{N} \right) + X_i(k) \cdot \cos\left( \frac{2\pi k n}{N} \right) \right]
 ```
 
-### Final Formula for IDFT:
-
 Thus, the IDFT formula in terms of real and imaginary parts is:
 
 ```math
@@ -127,21 +120,6 @@ x_r(n) = \frac{1}{N} \sum_{k=0}^{N-1} \left( X_r(k) \cdot \cos\left( \frac{2\pi 
 ```math
 x_i(n) = \frac{1}{N} \sum_{k=0}^{N-1} \left( X_r(k) \cdot \sin\left( \frac{2\pi k n}{N} \right) + X_i(k) \cdot \cos\left( \frac{2\pi k n}{N} \right) \right)
 ```
-
-### Real and Imaginary Parts of $x(n)$:
-
-The time-domain signal $x(n) = x_r(n) + i \cdot x_i(n)$ is now composed of:
-- **Real part** $x_r(n)$:
-```math
-x_r(n) = \frac{1}{N} \sum_{k=0}^{N-1} \left( X_r(k) \cdot \cos\left( \frac{2\pi k n}{N} \right) - X_i(k) \cdot \sin\left( \frac{2\pi k n}{N} \right) \right)
-```
-  
-- **Imaginary part** $x_i(n)$:
-```math
-x_i(n) = \frac{1}{N} \sum_{k=0}^{N-1} \left( X_r(k) \cdot \sin\left( \frac{2\pi k n}{N} \right) + X_i(k) \cdot \cos\left( \frac{2\pi k n}{N} \right) \right)
-```
-
-This formula reconstructs the real and imaginary components of the time-domain signal from its frequency-domain representation using the IDFT.
 
 Python Code:
 
