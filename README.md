@@ -1,15 +1,12 @@
 # DFT
 
+## Discrete Fourier Transform (DFT)
+
 The **Discrete Fourier Transform (DFT)** is a mathematical technique used to
 convert a sequence of values (usually in the time domain) into a sequence of
 complex numbers (representing the frequency domain). Essentially, it helps to
 decompose a signal into its constituent frequencies, showing how much of
 each frequency is present in the original signal.
-
-### Key Concepts
-
-- **Input:** A finite sequence of equally spaced samples (e.g., a time-domain signal).
-- **Output:** A sequence of complex numbers, each representing the magnitude and phase of a particular frequency component in the original signal.
 
 ### Formula
 
@@ -57,14 +54,33 @@ So the DFT of a complex sequence $x[n]$ has the following real and imaginary par
 **Imaginary part of $X[k]$:**
 
 ```math
-\text{Im}(X[k]) = - \sum_{n=0}^{N-1} \left( x_{\text{real}}[n] \sin \left( \frac{2\pi k n}{N} \right) - x_{\text{imag}}[n] \cos \left( \frac{2\pi k n}{N} \right) \right)
-```
-
-```math
 \text{Im}(X[k]) = \sum_{n=0}^{N-1} \left( - x_{\text{real}}[n] \sin \left( \frac{2\pi k n}{N} \right) + x_{\text{imag}}[n] \cos \left( \frac{2\pi k n}{N} \right) \right)
 ```
 
-This formulas explicitly separates the real and imaginary parts of the DFT, and can now be implemented in code.
+This formulas explicitly separates the real and imaginary parts of the DFT, and can now be implemented in Python code:
+
+```python
+def dft(x):
+    """
+    Compute the Discrete Fourier Transform (DFT)
+
+    Parameter x : The time-domain signal as a list of complex numbers.
+    Returns   X : List of DFT coefficients (frequency-domain representation).
+    """
+    N = len(x)
+    X = [complex()] * N
+    for k in range(N):  # Loop over each frequency bin
+        real = 0
+        imag = 0
+        for n in range(N):  # Loop over each time sample
+            angle = 2 * math.pi * k * n / N
+            real = real + x[n].real * math.cos(angle) + x[n].imag * math.sin(angle)
+            imag = imag - x[n].real * math.sin(angle) + x[n].imag * math.cos(angle)
+        X[k] = complex(real, imag)
+    return X
+```
+
+
 
 ---
 OLD OLD OLD OLD OLD OLD OLD OLD OLD OLD
