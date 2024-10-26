@@ -1,5 +1,86 @@
 # DFT
 
+The **Discrete Fourier Transform (DFT)** is a mathematical technique used to
+convert a sequence of values (usually in the time domain) into a sequence of
+complex numbers (representing the frequency domain). Essentially, it helps to
+decompose a signal into its constituent frequencies, showing how much of
+each frequency is present in the original signal.
+
+### Key Concepts
+
+- **Input:** A finite sequence of equally spaced samples (e.g., a time-domain signal).
+- **Output:** A sequence of complex numbers, each representing the magnitude and phase of a particular frequency component in the original signal.
+
+### Formula
+
+For a sequence $x[n]$ of $N$ samples, the DFT is given by:
+
+```math
+X[k] = \sum_{n=0}^{N-1} x[n] \cdot e^{-i \cdot 2 \pi \cdot k \cdot n / N}, \quad \text{for } k = 0, 1, 2, \dots, N-1
+```
+
+Where:
+- $X[k]$ is the DFT result at frequency index $k$,
+- $x[n]$ is the input signal at sample $n$,
+- $N$ is the total number of samples,
+- $i$ is the imaginary unit ($i = \sqrt{-1}$),
+- $e^{-i \cdot 2\pi \cdot k \cdot n / N}$ is the complex exponential (Euler's formula), representing a complex sinusoid.
+
+When the input sequence $x[n]$ is complex, it can be represented as:
+
+```math
+x[n] = x_{\text{real}}[n] + i \cdot x_{\text{imag}}[n]
+```
+
+where $x_{\text{real}}[n]$ and $x_{\text{imag}}[n]$ are the real and imaginary parts of $x[n]$, respectively.
+
+To express the DFT formula in terms of real and imaginary parts, we can expand the complex exponential $e^{-i \cdot 2\pi \cdot k \cdot n / N}$ using Euler's formula:
+
+```math
+e^{-i \cdot 2\pi \cdot k \cdot n / N} = \cos \left( \frac{2\pi k n}{N} \right) - i \sin \left( \frac{2\pi k n}{N} \right)
+```
+
+Substituting $x[n] = x_{\text{real}}[n] + i \cdot x_{\text{imag}}[n]$ and expanding the exponential $e^{-i \cdot 2\pi \cdot k \cdot n / N}$ using Euler's formula, we have:
+
+```math
+X[k] = \sum_{n=0}^{N-1} \left( x_{\text{real}}[n] + i \cdot x_{\text{imag}}[n] \right) \left( \cos \left( \frac{2\pi k n}{N} \right) - i \sin \left( \frac{2\pi k n}{N} \right) \right)
+```
+
+Expanding this product and grouping real and imaginary terms, we get:
+
+```math
+X[k] = \sum_{n=0}^{N-1} \left( x_{\text{real}}[n] \cos \left( \frac{2\pi k n}{N} \right) + x_{\text{imag}}[n] \sin \left( \frac{2\pi k n}{N} \right) \right) - i \sum_{n=0}^{N-1} \left( x_{\text{real}}[n] \sin \left( \frac{2\pi k n}{N} \right) - x_{\text{imag}}[n] \cos \left( \frac{2\pi k n}{N} \right) \right)
+```
+
+So the DFT of a complex sequence $x[n]$ has the following real and imaginary parts:
+
+**Real part of $X[k]$:**
+
+```math
+\text{Re}(X[k]) = \sum_{n=0}^{N-1} \left( x_{\text{real}}[n] \cos \left( \frac{2\pi k n}{N} \right) + x_{\text{imag}}[n] \sin \left( \frac{2\pi k n}{N} \right) \right)
+```
+
+**Imaginary part of $X[k]$:**
+
+```math
+\text{Im}(X[k]) = - \sum_{n=0}^{N-1} \left( x_{\text{real}}[n] \sin \left( \frac{2\pi k n}{N} \right) - x_{\text{imag}}[n] \cos \left( \frac{2\pi k n}{N} \right) \right)
+```
+
+These expressions represent the DFT in terms of the real and imaginary parts of both the input sequence \( x[n] \) and the resulting frequency component \( X[k] \).
+
+### Explanation
+
+1. **Time Domain (Input):** The sequence \( x[n] \) could represent any kind of signal, like an audio signal, a sequence of stock prices, or any other kind of data measured over time.
+2. **Frequency Domain (Output):** The DFT decomposes this signal into different frequency components. Each output \( X[k] \) corresponds to a specific frequency component in the original signal.
+    - **Magnitude:** \( |X[k]| \) tells you how much of frequency \( k \) is present.
+    - **Phase:** The argument of \( X[k] \) (angle) tells you the phase shift of that frequency component in the original signal.
+
+---
+OLD OLD OLD OLD OLD OLD OLD OLD OLD OLD
+---
+
+# DFT
+
 
 ## Discrete Fourier Transform (DFT)
 
