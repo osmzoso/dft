@@ -26,13 +26,7 @@ Where:
 - $i$ is the imaginary unit ($i = \sqrt{-1}$),
 - $e^{-i \cdot 2\pi \cdot k \cdot n / N}$ is the complex exponential (Euler's formula), representing a complex sinusoid.
 
-When the input sequence $x[n]$ is complex, it can be represented as:
-
-```math
-x[n] = x_{\text{real}}[n] + i \cdot x_{\text{imag}}[n]
-```
-
-where $x_{\text{real}}[n]$ and $x_{\text{imag}}[n]$ are the real and imaginary parts of $x[n]$, respectively.
+When the input sequence $x[n]$ is complex, it can be represented as $x[n] = x_{\text{real}}[n] + i \cdot x_{\text{imag}}[n]$.
 
 To express the DFT formula in terms of real and imaginary parts, we can expand the complex exponential $e^{-i \cdot 2\pi \cdot k \cdot n / N}$ using Euler's formula:
 
