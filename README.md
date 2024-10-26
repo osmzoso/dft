@@ -60,14 +60,11 @@ So the DFT of a complex sequence $x[n]$ has the following real and imaginary par
 \text{Im}(X[k]) = - \sum_{n=0}^{N-1} \left( x_{\text{real}}[n] \sin \left( \frac{2\pi k n}{N} \right) - x_{\text{imag}}[n] \cos \left( \frac{2\pi k n}{N} \right) \right)
 ```
 
-These expressions represent the DFT in terms of the real and imaginary parts of both the input sequence \( x[n] \) and the resulting frequency component \( X[k] \).
+```math
+\text{Im}(X[k]) = \sum_{n=0}^{N-1} \left( - x_{\text{real}}[n] \sin \left( \frac{2\pi k n}{N} \right) + x_{\text{imag}}[n] \cos \left( \frac{2\pi k n}{N} \right) \right)
+```
 
-### Explanation
-
-1. **Time Domain (Input):** The sequence \( x[n] \) could represent any kind of signal, like an audio signal, a sequence of stock prices, or any other kind of data measured over time.
-2. **Frequency Domain (Output):** The DFT decomposes this signal into different frequency components. Each output \( X[k] \) corresponds to a specific frequency component in the original signal.
-    - **Magnitude:** \( |X[k]| \) tells you how much of frequency \( k \) is present.
-    - **Phase:** The argument of \( X[k] \) (angle) tells you the phase shift of that frequency component in the original signal.
+This formulas explicitly separates the real and imaginary parts of the DFT, and can now be implemented in code.
 
 ---
 OLD OLD OLD OLD OLD OLD OLD OLD OLD OLD
