@@ -41,7 +41,7 @@ def idft(X):
         for k in range(N):
             angle = 2 * math.pi * k * n / N
             real = real + X[k].real * math.cos(angle) - X[k].imag * math.sin(angle)
-            imag = imag + X[k].imag * math.cos(angle) + X[k].real * math.sin(angle)
+            imag = imag + X[k].real * math.sin(angle) + X[k].imag * math.cos(angle)
         real = real / N  # divide by N to ensure the proper scaling
         imag = imag / N
         x[n] = complex(real, imag)
