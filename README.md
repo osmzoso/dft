@@ -153,7 +153,7 @@ def idft(X):
 
 ## Links
 
-<https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/writing-mathematical-expressions>
+<https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/writing-mathematical-expressions>  
 <https://stackoverflow.com/questions/5595425/how-to-compare-floats-for-almost-equality-in-python>  
-<https://www.geeksforgeeks.org/discrete-fourier-transform-and-its-inverse-using-c>
-[The most beautiful equation in math, explained visually [Euler’s Formula]](https://www.youtube.com/watch?v=f8CXG7dS-D0)
+<https://www.geeksforgeeks.org/discrete-fourier-transform-and-its-inverse-using-c>  
+[The most beautiful equation in math, explained visually [Euler’s Formula]](https://www.youtube.com/watch?v=f8CXG7dS-D0)  
