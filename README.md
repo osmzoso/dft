@@ -34,7 +34,7 @@ e^{-i \cdot 2\pi \cdot k \cdot n / N} = \cos \left( \frac{2\pi k n}{N} \right) -
 Substituting $x[n] = x_{\text{real}}[n] + i \cdot x_{\text{imag}}[n]$ and expanding the exponential $e^{-i \cdot 2\pi \cdot k \cdot n / N}$ using Euler's formula, we have:
 
 ```math
-X[k] = \sum_{n=0}^{N-1} \left( x_{\text{real}}[n] + i \cdot x_{\text{imag}}[n] \right) \left( \cos \left( \frac{2\pi k n}{N} \right) - i \cdot \sin \left( \frac{2\pi k n}{N} \right) \right)
+X[k] = \sum_{n=0}^{N-1} \left( x_{\text{real}}[n] + i \cdot x_{\text{imag}}[n] \right) \cdot \left( \cos \left( \frac{2\pi k n}{N} \right) - i \cdot \sin \left( \frac{2\pi k n}{N} \right) \right)
 ```
 
 Expanding this product and grouping real and imaginary terms, we get:
@@ -53,7 +53,7 @@ X_{\text{real}}[k] = \sum_{n=0}^{N-1} \left( x_{\text{real}}[n] \cdot \cos \left
 X_{\text{imag}}[k] = \sum_{n=0}^{N-1} \left( - x_{\text{real}}[n] \cdot \sin \left( \frac{2\pi k n}{N} \right) + x_{\text{imag}}[n] \cdot \cos \left( \frac{2\pi k n}{N} \right) \right)
 ```
 
-This formulas explicitly separates the real and imaginary parts of the DFT, and can now be implemented in Python code:
+This formulas explicitly separates the real and imaginary parts of the DFT and can now be implemented in Python code:
 
 ```python
 import math
