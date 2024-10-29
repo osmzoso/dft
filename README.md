@@ -28,38 +28,36 @@ When the input sequence $x[n]$ is complex, it can be represented as $x[n] = x_{\
 To express the DFT formula in terms of real and imaginary parts, we can expand the complex exponential $e^{-i \cdot 2\pi \cdot k \cdot n / N}$ using Euler's formula:
 
 ```math
-e^{-i \cdot 2\pi \cdot k \cdot n / N} = \cos \left( \frac{2\pi k n}{N} \right) - i \sin \left( \frac{2\pi k n}{N} \right)
+e^{-i \cdot 2\pi \cdot k \cdot n / N} = \cos \left( \frac{2\pi k n}{N} \right) - i \cdot \sin \left( \frac{2\pi k n}{N} \right)
 ```
 
 Substituting $x[n] = x_{\text{real}}[n] + i \cdot x_{\text{imag}}[n]$ and expanding the exponential $e^{-i \cdot 2\pi \cdot k \cdot n / N}$ using Euler's formula, we have:
 
 ```math
-X[k] = \sum_{n=0}^{N-1} \left( x_{\text{real}}[n] + i \cdot x_{\text{imag}}[n] \right) \left( \cos \left( \frac{2\pi k n}{N} \right) - i \sin \left( \frac{2\pi k n}{N} \right) \right)
+X[k] = \sum_{n=0}^{N-1} \left( x_{\text{real}}[n] + i \cdot x_{\text{imag}}[n] \right) \left( \cos \left( \frac{2\pi k n}{N} \right) - i \cdot \sin \left( \frac{2\pi k n}{N} \right) \right)
 ```
 
 Expanding this product and grouping real and imaginary terms, we get:
 
 ```math
-X[k] = \sum_{n=0}^{N-1} \left( x_{\text{real}}[n] \cos \left( \frac{2\pi k n}{N} \right) + x_{\text{imag}}[n] \sin \left( \frac{2\pi k n}{N} \right) \right) - i \sum_{n=0}^{N-1} \left( x_{\text{real}}[n] \sin \left( \frac{2\pi k n}{N} \right) - x_{\text{imag}}[n] \cos \left( \frac{2\pi k n}{N} \right) \right)
+X[k] = \sum_{n=0}^{N-1} \left( x_{\text{real}}[n] \cdot \cos \left( \frac{2\pi k n}{N} \right) + x_{\text{imag}}[n] \cdot \sin \left( \frac{2\pi k n}{N} \right) \right) - i \sum_{n=0}^{N-1} \left( x_{\text{real}}[n] \cdot \sin \left( \frac{2\pi k n}{N} \right) - x_{\text{imag}}[n] \cdot \cos \left( \frac{2\pi k n}{N} \right) \right)
 ```
 
 So the DFT of a complex sequence $x[n]$ has the following real and imaginary parts:
 
-**Real part of $X[k]$:**
-
 ```math
-\text{Re}(X[k]) = \sum_{n=0}^{N-1} \left( x_{\text{real}}[n] \cos \left( \frac{2\pi k n}{N} \right) + x_{\text{imag}}[n] \sin \left( \frac{2\pi k n}{N} \right) \right)
+X_{\text{real}}[k] = \sum_{n=0}^{N-1} \left( x_{\text{real}}[n] \cdot \cos \left( \frac{2\pi k n}{N} \right) + x_{\text{imag}}[n] \cdot \sin \left( \frac{2\pi k n}{N} \right) \right)
 ```
 
-**Imaginary part of $X[k]$:**
-
 ```math
-\text{Im}(X[k]) = \sum_{n=0}^{N-1} \left( - x_{\text{real}}[n] \sin \left( \frac{2\pi k n}{N} \right) + x_{\text{imag}}[n] \cos \left( \frac{2\pi k n}{N} \right) \right)
+X_{\text{imag}}[k] = \sum_{n=0}^{N-1} \left( - x_{\text{real}}[n] \cdot \sin \left( \frac{2\pi k n}{N} \right) + x_{\text{imag}}[n] \cdot \cos \left( \frac{2\pi k n}{N} \right) \right)
 ```
 
 This formulas explicitly separates the real and imaginary parts of the DFT, and can now be implemented in Python code:
 
 ```python
+import math
+
 def dft(x):
     """
     Compute the Discrete Fourier Transform (DFT)
